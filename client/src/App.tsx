@@ -50,7 +50,7 @@ const App: React.FC = () => {
     sendFile();
   };
 
-  //* Confirm the Picture
+  //* Cancel the Picture
   const handleCancelPic = () => {
     setImage("");
   };
@@ -115,12 +115,12 @@ const App: React.FC = () => {
           </div>
         ) : null}
       </div>
-      <div className="grid grid-cols-3 gap-8 container mx-auto mb-16">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 container mx-auto mb-16 px-4 md:px-0">
         {pictures.map(({ name }) => (
           <img
             src={`http://localhost:5000/${name}`}
             alt=""
-            className="w-full h-full rounded-2xl"
+            className="w-full h-[350px] object-contain rounded-2xl bg-black"
           />
         ))}
       </div>
