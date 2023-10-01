@@ -1,13 +1,14 @@
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 5000;
-// const profile = require("./profile");
 const cors = require("cors");
 const expressFileUpload = require("express-fileupload");
 const path = require("path");
-const assetFolder = path.join(__dirname, "assets");
 const { MongoClient, ServerApiVersion } = require("mongodb");
+// const profile = require("./profile");
 // const multer = require("multer");
+
+const assetFolder = path.join(__dirname, "assets");
 
 const corsOptions = {
   origin: "*",
@@ -15,7 +16,7 @@ const corsOptions = {
   optionSuccessStatus: 200,
 };
 //* middlewares
-app.use(cors(corsOptions));
+app.use(cors());
 // app.use(express.urlencoded({ extended: false }));
 // app.use("/profile", profile);
 app.use(express.static("assets"));
@@ -57,12 +58,14 @@ async function run() {
     client.connect();
 
     app.post("/profile", async (req, res) => {
-      console.log(req.files);
       const { file } = req.files;
       const fileName = file.name.replaceAll(" ", "-");
       try {
         file.mv(path.join(assetFolder, fileName));
-        const result = await fileCollection.insertOne({ name: fileName });
+        const result = await fileCollection.insertOne({
+          url: `https://file-upload-to-server.vercel.app/${fileName}`,
+        });
+        console.log(result);
         res.status(200).send({ message: "ok", result });
       } catch (e) {
         res.status(500).send({ error: true, message: "Error occured" });

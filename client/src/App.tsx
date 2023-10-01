@@ -9,7 +9,9 @@ const App: React.FC = () => {
   const [pictures, setPictures] = useState([]);
 
   const loadData = async () => {
-    const res = await fetch("http://localhost:5000/getimage");
+    const res = await fetch(
+      "https://file-upload-to-server.vercel.app/getimage"
+    );
     const data = await res.json();
     setPictures(data);
   };
@@ -22,6 +24,7 @@ const App: React.FC = () => {
     setFile(selectedFile);
     if (selectedFile) {
       const objectURL = URL.createObjectURL(selectedFile);
+      console.log(objectURL);
     }
     setImage(URL.createObjectURL(selectedFile!)); //! convert the image name into URL to display and put in image:src
     event.target.value = ""; //! reset the input field
@@ -33,10 +36,13 @@ const App: React.FC = () => {
     formData.set("file", file!);
     const sendFile = async () => {
       try {
-        const res = await fetch("http://localhost:5000/profile", {
-          method: "POST",
-          body: formData,
-        });
+        const res = await fetch(
+          "https://file-upload-to-server.vercel.app/profile",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
         const data = await res.json();
         console.log(data);
         loadData();
@@ -116,9 +122,10 @@ const App: React.FC = () => {
         ) : null}
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 container mx-auto mb-16 px-4 md:px-0">
-        {pictures.map(({ name }) => (
+        {pictures.map(({ url }, i) => (
           <img
-            src={`http://localhost:5000/${name}`}
+            key={i}
+            src={url}
             alt=""
             className="w-full h-[350px] object-contain rounded-2xl bg-black"
           />

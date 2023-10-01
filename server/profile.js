@@ -1,4 +1,4 @@
-const express = require("express");
+/* const express = require("express");
 const router = express.Router();
 const expressFileUpload = require("express-fileupload");
 const path = require("path");
@@ -7,7 +7,6 @@ const assetFolder = path.join(__dirname, "assets");
 router.use(expressFileUpload());
 
 router.post("/", async (req, res) => {
-  // console.log(req.files);
   const { file } = req.files;
   const fileName = file.name.replaceAll(" ", "-");
   try {
@@ -20,3 +19,4 @@ router.post("/", async (req, res) => {
 });
 
 module.exports = router;
+ */
