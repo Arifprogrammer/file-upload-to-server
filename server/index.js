@@ -11,7 +11,7 @@ const { MongoClient, ServerApiVersion } = require("mongodb");
 const assetFolder = path.join(__dirname, "assets");
 
 const corsOptions = {
-  origin: "*",
+  origin: "https://file-upload-to-server.web.app/",
   credentials: true,
   optionSuccessStatus: 200,
 };
