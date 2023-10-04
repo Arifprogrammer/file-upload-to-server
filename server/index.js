@@ -11,12 +11,12 @@ const { MongoClient, ServerApiVersion } = require("mongodb");
 const assetFolder = path.join(__dirname, "assets");
 
 const corsOptions = {
-  origin: "https://file-upload-to-server.web.app/",
+  origin: "*",
   credentials: true,
   optionSuccessStatus: 200,
 };
 //* middlewares
-app.use(cors());
+app.use(cors(corsOptions));
 // app.use(express.urlencoded({ extended: false }));
 // app.use("/profile", profile);
 app.use(express.static("assets"));
@@ -63,7 +63,7 @@ async function run() {
       try {
         file.mv(path.join(assetFolder, fileName));
         const result = await fileCollection.insertOne({
-          url: `https://file-upload-to-server.vercel.app/${fileName}`,
+          url: `http://localhost:5000/${fileName}`,
         });
         console.log(result);
         res.status(200).send({ message: "ok", result });

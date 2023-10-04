@@ -9,9 +9,7 @@ const App: React.FC = () => {
   const [pictures, setPictures] = useState([]);
 
   const loadData = async () => {
-    const res = await fetch(
-      "https://file-upload-to-server.vercel.app/getimage"
-    );
+    const res = await fetch("http://localhost:5000/getimage");
     const data = await res.json();
     setPictures(data);
   };
@@ -36,13 +34,10 @@ const App: React.FC = () => {
     formData.set("file", file!);
     const sendFile = async () => {
       try {
-        const res = await fetch(
-          "https://file-upload-to-server.vercel.app/profile",
-          {
-            method: "POST",
-            body: formData,
-          }
-        );
+        const res = await fetch("http://localhost:5000/profile", {
+          method: "POST",
+          body: formData,
+        });
         const data = await res.json();
         console.log(data);
         loadData();
